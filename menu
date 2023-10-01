@@ -1,0 +1,44 @@
+#!/bin/bash
+
+menu_src () {
+bot_retorno="=========COMANDOS=========\n"
+	 if [[ $(echo $permited|grep "${chatuser}") = "" ]]; then
+		 if [[ $(cat ${CID}|grep "${chatuser}") = "" ]]; then
+			 bot_retorno+="/ID (muestra sus ID)\n"
+			 bot_retorno+="/menu (muestra este menu)\n"
+			 bot_retorno+="/ayuda (ayuda de los comandos)\n"
+			 bot_retorno+="$LINE\n"
+			 msj_fun
+		 else
+			 bot_retorno+="/ID (muestra sus ID)\n"
+			 bot_retorno+="/instal (link de instalacion)\n"
+			 bot_retorno+="/menu (muestra este menu)\n"
+			 bot_retorno+="/ayuda (ayuda de los comandos)\n"
+			 bot_retorno+="$LINE\n"
+			 menu_print
+		 fi
+		 
+	 else
+		 unset PID_GEN
+		 PID_GEN=$(ps x|grep -v grep|grep "http-server.sh")
+		 [[ ! $PID_GEN ]] && PID_GEN='(Offline) ❌' || PID_GEN='(Online) ✅'
+
+		 unset usadas
+		 usadas="$(cat /etc/http-instas)"
+		 [[ ! $usadas ]] && k_used="0" || k_used="$usadas"
+		 
+		 bot_retorno+="Gen $PID_GEN | Keys Used [$k_used]\n"
+
+		 bot_retorno+="$LINE\n"
+		 bot_retorno+="🖥️ /infosys (info del sistema)🖥️\n"
+		 bot_retorno+="🧾/list (lista de ID permitidas)🧾\n"
+		 bot_retorno+="⚡/instal (link de instalacion)⚡\n"
+		 bot_retorno+="🚀/menu (muestra este menu)🚀\n"
+		 bot_retorno+="🤔/ayuda (ayuda de los comandos)🤔\n"
+		 bot_retorno+="📍/cache (Limpiar cache Ram)📍\n"
+		 bot_retorno+="♻️/update (actualiza el BotGen)♻️\n"
+		 bot_retorno+="🛡️/reboot (Reinicia el servidor vps)🛡️\n"
+		 bot_retorno+="$LINE\n"
+		 menu_print
+	 fi	
+}
